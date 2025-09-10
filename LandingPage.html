@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd6e7 0%, #ffcce0 100%);
+            overflow: hidden;
+            color: #5d2d4d;
+        }
+        
+        .loading-container {
+            text-align: center;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+            padding: 30px;
+            max-width: 90%;
+            margin: 0 auto;
+            background-color: rgba(255, 235, 243, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(210, 60, 119, 0.15);
+            border: 1px solid rgba(255, 173, 210, 0.4);
+        }
+        
+        .loading-text {
+            font-size: 24px;
+            color: #c72d6a;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(210, 60, 119, 0.1);
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ffd6e7;
+            border-top: 5px solid #e64d8b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 15px rgba(230, 77, 139, 0.4);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .content {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            background: #fff5fa;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(210, 60, 119, 0.15);
+            border: 1px solid #ffb3d1;
+        }
+        
+        .content h1 {
+            color: #c72d6a;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(210, 60, 119, 0.1);
+        }
+        
+        .content p {
+            color: #6a3a5a;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .pink-button {
+            background: #e64d8b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 77, 139, 0.3);
+        }
+        
+        .pink-button:hover {
+            background: #d23c77;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(210, 60, 119, 0.4);
+        }
+        
+        .pink-button:active {
+            transform: translateY(0);
+        }
+        
+        .heart {
+            font-size: 3em;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Design */
+        @media only screen and (max-width: 1200px) {
+            /* Laptop */
+            .loading-text {
+                font-size: 22px;
+            }
+            
+            .spinner {
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        @media only screen and (max-width: 768px) {
+            /* Tablet */
+            .loading-text {
+                font-size: 20px;
+            }
+            
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border-width: 4px;
+            }
+        }
+        
+        @media only screen and (max-width: 480px) {
+            /* Mobile */
+            .loading-text {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+            
+            .spinner {
+                width: 35px;
+                height: 35px;
+                border-width: 3px;
+            }
+            
+            .content h1 {
+                font-size: 24px;
+            }
+            
+            .content p {
+                font-size: 16px;
+            }
+        }
+        
+        @media only screen and (max-width: 320px) {
+            /* Small Mobile */
+            .loading-text {
+                font-size: 16px;
+            }
+            
+            .spinner {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container" id="loadingScreen">
+        <div class="loading-text">Kindly Please Wait</div>
+        <div class="spinner"></div>
+    </div>
+    
+    <div class="content" id="mainContent">
+        <h1>Welcome Isay Nephilim!</h1>
+        <p>Do you want to see what I do for you?</p>
+        <button id="showProjectBtn" class="pink-button">Click Me</button>
+    </div>
+    
+    <div class="content" id="projectContent" style="display: none;">
+        <h1>For You, My Love</h1>
+        <p>This is my special project just for you. Every line of code is written with love.</p>
+        <div class="heart">❤️</div>
+        <button id="backBtn" class="pink-button">Back to Home</button>
+    </div>
+
+    <script>
+        function showLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const mainContent = document.getElementById('mainContent');
+            const projectContent = document.getElementById('projectContent');
+            
+            // Hide all content
+            mainContent.style.opacity = '0';
+            projectContent.style.opacity = '0';
+            mainContent.style.display = 'none';
+            projectContent.style.display = 'none';
+            
+            // Show loading screen
+            loadingScreen.style.display = 'block';
+            loadingScreen.style.opacity = '1';
+            
+            // After 5 seconds, show the appropriate content
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    
+                    // Toggle between main content and project content
+                    if (projectContent.style.display === 'none') {
+                        projectContent.style.display = 'block';
+                        void projectContent.offsetHeight;
+                        projectContent.style.opacity = '1';
+                    } else {
+                        mainContent.style.display = 'block';
+                        void mainContent.offsetHeight;
+                        mainContent.style.opacity = '1';
+                    }
+                }, 1000);
+            }, 5000);
+        }
+
+        // Initial page load
+        window.addEventListener('load', function() {
+            // Initial show of main content after loading
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const mainContent = document.getElementById('mainContent');
+                
+                loadingScreen.style.opacity = '0';
+                
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    void mainContent.offsetHeight;
+                    mainContent.style.opacity = '1';
+                }, 1000);
+            }, 5000);
+
+            // Button event listeners
+            document.getElementById('showProjectBtn').addEventListener('click', function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const mainContent = document.getElementById('mainContent');
+                
+                // Hide main content and show loading screen
+                mainContent.style.opacity = '0';
+                mainContent.style.display = 'none';
+                loadingScreen.style.display = 'block';
+                loadingScreen.style.opacity = '1';
+                
+                // After 5 seconds, navigate to project.html
+                setTimeout(() => {
+                    window.location.href = 'project.html';
+                }, 5000);
+            });
+            
+            // Back button functionality (kept in case needed for other navigation)
+            document.getElementById('backBtn').addEventListener('click', function() {
+                showLoadingScreen();
+            });
+        });
+    </script>
+</body>
+</html>
